@@ -7,14 +7,14 @@ Jogjalan API for listing various tourism destinatios, todos, and restaurants in 
 - Production: <https://jogjalan.budigunawan.com>
 - Local: <http://localhost:3000>
 
-| Endpoint      | HTTP     | Description             |
-| ------------- | -------- | ----------------------- |
-| `/places`     | `GET`    | Get all places          |
-| `/places/:id` | `GET`    | Get one animal by id    |
-| `/places`     | `POST`   | Add new animal          |
-| `/places`     | `DELETE` | Delete all places       |
-| `/places/:id` | `DELETE` | Delete one animal by id |
-| `/places/:id` | `PUT`    | Update one animal by id |
+| Endpoint      | HTTP     | Description            |
+| ------------- | -------- | ---------------------- |
+| `/places`     | `GET`    | Get all places         |
+| `/places/:id` | `GET`    | Get one place by id    |
+| `/places`     | `POST`   | Add new place          |
+| `/places`     | `DELETE` | Delete all places      |
+| `/places/:id` | `DELETE` | Delete one place by id |
+| `/places/:id` | `PUT`    | Update one place by id |
 
 ## Getting Started
 
