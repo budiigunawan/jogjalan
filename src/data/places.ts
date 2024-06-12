@@ -1,4 +1,20 @@
-export const dataPlaces = [
+export type Place = {
+  id: string;
+  name: string;
+  description: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  type: string;
+  cuisine?: string;
+  diet?: string[];
+  placeCategory?: string;
+  rating: number;
+  opening_hours: string;
+  image_url: string;
+};
+
+export const dataPlaces: Place[] = [
   {
     id: "1",
     name: "Gudeg Yu Djum",
@@ -29,6 +45,7 @@ export const dataPlaces = [
     image_url: "https://example.com/images/house_of_raminten.jpg",
   },
   {
+    id: "3",
     name: "Taman Sari Water Castle",
     description: "A beautiful historic site perfect for a romantic stroll.",
     address: "Jalan Taman, Yogyakarta",
