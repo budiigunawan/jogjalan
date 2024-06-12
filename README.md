@@ -28,9 +28,8 @@ To run:
 
 ```sh
 bun run dev
-```
 
-```sh
+#  OR
 bun dev
 ```
 
