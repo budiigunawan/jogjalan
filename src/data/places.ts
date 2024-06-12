@@ -1,5 +1,5 @@
 export type Place = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   address: string;
@@ -16,7 +16,7 @@ export type Place = {
 
 export const dataPlaces: Place[] = [
   {
-    id: "1",
+    id: 1,
     name: "Gudeg Yu Djum",
     description: "Famous for its traditional Yogyakarta gudeg.",
     address: "Jalan Wijilan No.167, Yogyakarta",
@@ -30,7 +30,7 @@ export const dataPlaces: Place[] = [
     image_url: "https://example.com/images/gudeg_yu_djum.jpg",
   },
   {
-    id: "2",
+    id: 2,
     name: "The House of Raminten",
     description:
       "A unique dining experience with a traditional Javanese ambiance.",
@@ -45,7 +45,7 @@ export const dataPlaces: Place[] = [
     image_url: "https://example.com/images/house_of_raminten.jpg",
   },
   {
-    id: "3",
+    id: 3,
     name: "Taman Sari Water Castle",
     description: "A beautiful historic site perfect for a romantic stroll.",
     address: "Jalan Taman, Yogyakarta",
