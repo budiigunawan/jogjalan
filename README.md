@@ -1,6 +1,6 @@
 # Jogjalan
 
-Jogjalan API for listing various tourism destinatios, todos, and restaurants in Yogyakarta.
+Jogjalan API for listing various tourism destinatios, restaurants, and todos in Yogyakarta.
 
 ## REST API Specification
 
@@ -34,6 +34,7 @@ To run:
 bun run dev
 
 #  OR
+
 bun dev
 ```
 
