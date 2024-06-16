@@ -28,14 +28,14 @@ export type PlaceCategory = {
 
 export type TodoCategory = {
   name: string;
-  placeCategories: string[];
+  todoCategories: string[];
 };
 
 export type OpeningHour = {
   day: string;
   startHour?: Date;
   endHour?: Date;
-  isClosed: boolean;
+  isOpen: boolean;
 };
 
 export const dataPlaces: Place[] = [
@@ -57,43 +57,43 @@ export const dataPlaces: Place[] = [
     openingHours: [
       {
         day: "Sunday",
-        isClosed: true,
+        isOpen: true,
       },
       {
         day: "Monday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Tuesday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Wednesday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Thursday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Friday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Saturday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
     ],
     imageUrl: "https://example.com/images/gudeg_yu_djum.jpg",
@@ -117,43 +117,43 @@ export const dataPlaces: Place[] = [
     openingHours: [
       {
         day: "Sunday",
-        isClosed: true,
+        isOpen: true,
       },
       {
         day: "Monday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Tuesday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Wednesday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Thursday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Friday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Saturday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
     ],
     imageUrl: "https://example.com/images/house_of_raminten.jpg",
@@ -175,43 +175,43 @@ export const dataPlaces: Place[] = [
     openingHours: [
       {
         day: "Sunday",
-        isClosed: true,
+        isOpen: true,
       },
       {
         day: "Monday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Tuesday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Wednesday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Thursday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Friday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
       {
         day: "Saturday",
         startHour: new Date("2024-06-06T07:00:00"),
         endHour: new Date("2024-06-06T21:00:00"),
-        isClosed: false,
+        isOpen: true,
       },
     ],
     imageUrl: "https://example.com/images/taman_sari.jpg",
