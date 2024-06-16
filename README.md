@@ -16,6 +16,10 @@ Jogjalan API for listing various tourism destinatios, todos, and restaurants in 
 | `/places/:id` | `DELETE` | Delete one place by id |
 | `/places/:id` | `PUT`    | Update one place by id |
 
+## Database Design/Schema/ERD
+
+![ERD](./assets/jogjalan.svg)
+
 ## Getting Started
 
 To install dependencies:

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { dataPlaces } from "./data/places";
+import { Place, dataPlaces } from "./data/places";
 
 let places = dataPlaces;
 
@@ -63,6 +63,53 @@ app.delete("/places/:id", (c) => {
   return c.json({
     message: `Place with ID ${id} has been deleted`,
     deletedPlace: place,
+  });
+});
+
+app.post("/places", async (c) => {
+  const body = await c.req.json();
+  const {
+    name,
+    description,
+    placeType,
+    categories,
+    address,
+    latitude,
+    longitude,
+    rating,
+    openingHours,
+    imageUrl,
+  } = body;
+
+  const newPlace: Place = {
+    id: places[places.length - 1].id + 1,
+    name,
+    description,
+    placeType,
+    address,
+    latitude,
+    longitude,
+    categories,
+    rating,
+    openingHours,
+    imageUrl,
+  };
+
+  const updatedPlaces = [...places, newPlace];
+
+  places = updatedPlaces;
+
+  return c.json({
+    message: "New place has been added",
+    newPlace,
+  });
+});
+
+app.post("/places/seed", async (c) => {
+  places = dataPlaces;
+
+  return c.json({
+    message: "Mana places data has been seeded.",
   });
 });
 
