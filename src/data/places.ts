@@ -2,7 +2,7 @@ export type Place = {
   id: number;
   name: string;
   description: string;
-  placeType: PlaceType;
+  tag: TagType;
   categories: Category[];
   address: string;
   latitude: number;
@@ -12,7 +12,7 @@ export type Place = {
   imageUrl: string;
 };
 
-export type PlaceType = {
+export type TagType = {
   id: number;
   name: string;
 };
@@ -20,7 +20,9 @@ export type PlaceType = {
 export type Category = {
   id: number;
   name: string;
-  categoriesOf: string;
+  metadata?: {
+    diet: string;
+  };
 };
 
 export type OpeningHour = {
@@ -38,7 +40,7 @@ export const dataPlaces: Place[] = [
     address: "Jalan Wijilan No.167, Yogyakarta",
     latitude: 40.5107736,
     longitude: -74.2482624,
-    placeType: {
+    tag: {
       id: 1,
       name: "food",
     },
@@ -46,7 +48,6 @@ export const dataPlaces: Place[] = [
       {
         id: 1,
         name: "indonesian",
-        categoriesOf: "food",
       },
     ],
     rating: 4.7,
@@ -104,7 +105,7 @@ export const dataPlaces: Place[] = [
     address: "Jalan FM Noto No.7, Yogyakarta",
     latitude: 40.5107736,
     longitude: -74.2482624,
-    placeType: {
+    tag: {
       id: 1,
       name: "food",
     },
@@ -112,7 +113,6 @@ export const dataPlaces: Place[] = [
       {
         id: 1,
         name: "indonesian",
-        categoriesOf: "food",
       },
     ],
     rating: 4.5,
@@ -169,7 +169,7 @@ export const dataPlaces: Place[] = [
     address: "Jalan Taman, Yogyakarta",
     latitude: 40.5107736,
     longitude: -74.2482624,
-    placeType: {
+    tag: {
       id: 1,
       name: "place",
     },
@@ -177,7 +177,6 @@ export const dataPlaces: Place[] = [
       {
         id: 2,
         name: "historical",
-        categoriesOf: "place",
       },
     ],
     rating: 4.7,
