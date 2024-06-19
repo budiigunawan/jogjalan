@@ -68,14 +68,15 @@ app.delete("/places/:id", (c) => {
 
 app.post("/places", async (c) => {
   const body = await c.req.json();
+
   const {
     name,
     description,
-    placeType,
-    categories,
     address,
     latitude,
     longitude,
+    placeType,
+    categories,
     rating,
     openingHours,
     imageUrl,
@@ -85,10 +86,10 @@ app.post("/places", async (c) => {
     id: places[places.length - 1].id + 1,
     name,
     description,
-    placeType,
     address,
     latitude,
     longitude,
+    placeType,
     categories,
     rating,
     openingHours,
@@ -109,7 +110,7 @@ app.post("/places/seed", async (c) => {
   places = dataPlaces;
 
   return c.json({
-    message: "Mana places data has been seeded.",
+    message: "Many places data has been seeded.",
   });
 });
 
