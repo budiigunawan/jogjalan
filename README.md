@@ -18,7 +18,7 @@ Jogjalan API for listing various tourism destinatios, restaurants, and todos in 
 
 ## Database Design/Schema/ERD
 
-![ERD](./assets/jogjalan.svg)
+![ERD](./assets/jogjalan-erd.svg)
 
 ## Getting Started
 
