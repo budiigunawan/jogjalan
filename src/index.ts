@@ -114,4 +114,39 @@ app.post("/places/seed", async (c) => {
   });
 });
 
+app.put("/places/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+
+  if (!id) {
+    return c.json({ message: "There is no place ID" });
+  }
+
+  const place = places.find((place) => place.id === id);
+
+  if (!place) {
+    return c.json({ message: "Place not found" });
+  }
+
+  const body = await c.req.json();
+  const { name, description } = body;
+
+  const newPlace: Place = {
+    ...place,
+    name,
+    description,
+  };
+
+  const updatedPlaces = places.map((place) => {
+    if (place.id === id) {
+      return newPlace;
+    } else {
+      return place;
+    }
+  });
+
+  places = updatedPlaces;
+
+  return c.json(newPlace);
+});
+
 export default app;
