@@ -1,7 +1,9 @@
 import { Hono } from "hono";
+import { PrismaClient } from "@prisma/client";
 import { Place, dataPlaces } from "./data/places";
 
 let places = dataPlaces;
+const prisma = new PrismaClient();
 
 const app = new Hono();
 
@@ -19,6 +21,11 @@ app.get("/places", (c) => {
     });
   }
   return c.json(places);
+});
+
+app.get("/tags", async (c) => {
+  const tags = await prisma.tag.findMany();
+  return c.json(tags);
 });
 
 app.get("/places/:id", (c) => {
