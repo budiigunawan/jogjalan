@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Place {
+  id          Int    @id @default(autoincrement())
+  name        String @unique @db.VarChar(255)
+  description String @db.Text
+  address     String @db.VarChar(255)
+  latitude    Float?
+  longitude   Float?
+  phone       String @db.VarChar(14)
+  instagram   String @db.VarChar(255)
+  website     String @db.VarChar(255)
+  imgUrl      String @db.VarChar(255)
+
+  tag                Tag                  @relation(fields: [tagId], references: [id])
+  tagId              Int                  @unique
+  openingHours       OpeningHour[]
+  PlacesToCategories PlacesToCategories[]
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+
+  places Place[]
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model OpeningHour {
+  id        Int       @id @default(autoincrement())
+  dayOfWeek Int
+  isOpen    Boolean
+  startTime DateTime?
+  endTime   DateTime?
+
+  place   Place @relation(fields: [placeId], references: [id])
+  placeId Int   @unique
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+
+  PlacesToCategories PlacesToCategories[]
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model PlacesToCategories {
+  place      Place    @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  placeId    Int      @unique
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int      @unique
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@id([placeId, categoryId])
+}
