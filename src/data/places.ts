@@ -2,17 +2,19 @@ export type Place = {
   id: number;
   name: string;
   description: string;
-  tag: TagType;
+  tag: Tag;
   categories: Category[];
   address: string;
   latitude: number;
   longitude: number;
-  rating: number;
+  phone?: string;
+  instagram?: string;
+  website?: string;
   openingHours: OpeningHour[];
   imageUrl: string;
 };
 
-export type TagType = {
+export type Tag = {
   id: number;
   name: string;
 };
@@ -20,9 +22,6 @@ export type TagType = {
 export type Category = {
   id: number;
   name: string;
-  metadata?: {
-    diet: string;
-  };
 };
 
 export type OpeningHour = {
@@ -50,7 +49,6 @@ export const dataPlaces: Place[] = [
         name: "indonesian",
       },
     ],
-    rating: 4.7,
     openingHours: [
       {
         dayOfWeek: 0,
@@ -115,7 +113,6 @@ export const dataPlaces: Place[] = [
         name: "indonesian",
       },
     ],
-    rating: 4.5,
     openingHours: [
       {
         dayOfWeek: 0,
@@ -179,7 +176,6 @@ export const dataPlaces: Place[] = [
         name: "historical",
       },
     ],
-    rating: 4.7,
     openingHours: [
       {
         dayOfWeek: 0,
