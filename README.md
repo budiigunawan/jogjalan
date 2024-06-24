@@ -2,6 +2,13 @@
 
 Jogjalan API for listing various tourism destinatios, restaurants, and todos in Yogyakarta.
 
+## Tech Stacks
+
+- [Bun](https://bun.sh/)
+- [Hono](https://hono.dev/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+
 ## REST API Specification
 
 - Production: <https://jogjalan.budigunawan.com>
