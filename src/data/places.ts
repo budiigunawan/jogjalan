@@ -1,5 +1,5 @@
 export type Place = {
-  id: number;
+  id: string;
   name: string;
   description: string;
   tag: Tag;
@@ -15,12 +15,12 @@ export type Place = {
 };
 
 export type Tag = {
-  id: number;
+  id: string;
   name: string;
 };
 
 export type Category = {
-  id: number;
+  id: string;
   name: string;
 };
 
@@ -33,19 +33,19 @@ export type OpeningHour = {
 
 export const dataPlaces: Place[] = [
   {
-    id: 1,
+    id: "p1",
     name: "Gudeg Yu Djum",
     description: "Famous for its traditional Yogyakarta gudeg.",
     address: "Jalan Wijilan No.167, Yogyakarta",
     latitude: 40.5107736,
     longitude: -74.2482624,
     tag: {
-      id: 1,
+      id: "t1",
       name: "food",
     },
     categories: [
       {
-        id: 1,
+        id: "c1",
         name: "indonesian",
       },
     ],
@@ -96,7 +96,7 @@ export const dataPlaces: Place[] = [
     imageUrl: "https://example.com/images/gudeg_yu_djum.jpg",
   },
   {
-    id: 2,
+    id: "p2",
     name: "The House of Raminten",
     description:
       "A unique dining experience with a traditional Javanese ambiance.",
@@ -104,12 +104,12 @@ export const dataPlaces: Place[] = [
     latitude: 40.5107736,
     longitude: -74.2482624,
     tag: {
-      id: 1,
+      id: "t1",
       name: "food",
     },
     categories: [
       {
-        id: 1,
+        id: "c1",
         name: "indonesian",
       },
     ],
@@ -160,19 +160,19 @@ export const dataPlaces: Place[] = [
     imageUrl: "https://example.com/images/house_of_raminten.jpg",
   },
   {
-    id: 3,
+    id: "p3",
     name: "Taman Sari Water Castle",
     description: "A beautiful historic site perfect for a romantic stroll.",
     address: "Jalan Taman, Yogyakarta",
     latitude: 40.5107736,
     longitude: -74.2482624,
     tag: {
-      id: 1,
+      id: "t2",
       name: "place",
     },
     categories: [
       {
-        id: 2,
+        id: "c2",
         name: "historical",
       },
     ],

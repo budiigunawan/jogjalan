@@ -29,7 +29,7 @@ app.get("/tags", async (c) => {
 });
 
 app.get("/places/:id", (c) => {
-  const id = Number(c.req.param("id"));
+  const id = c.req.param("id");
 
   if (!id) {
     return c.json({ message: "There is no ID" });
@@ -53,7 +53,7 @@ app.delete("/places", (c) => {
 });
 
 app.delete("/places/:id", (c) => {
-  const id = Number(c.req.param("id"));
+  const id = c.req.param("id");
 
   if (!id) {
     return c.json({ message: "There is no place ID" });
@@ -126,7 +126,7 @@ app.post("/places/seed", async (c) => {
 });
 
 app.put("/places/:id", async (c) => {
-  const id = Number(c.req.param("id"));
+  const id = c.req.param("id");
 
   if (!id) {
     return c.json({ message: "There is no place ID" });
