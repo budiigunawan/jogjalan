@@ -1,4 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { tagService } from "../services";
 
 const apiTags = ["Tag"];
 
@@ -16,12 +17,18 @@ tagRoute.openapi(
     },
     tags: apiTags,
   },
-  (c) => {
-    return c.json(
-      {
-        message: "This is tags",
-      },
-      200
-    );
+  async (c) => {
+    const tags = await tagService.getAll();
+
+    if (tags.length <= 0) {
+      return c.json(
+        {
+          message: "There is no tags data",
+        },
+        200
+      );
+    }
+
+    return c.json(tags, 200);
   }
 );
