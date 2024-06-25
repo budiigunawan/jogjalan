@@ -12,3 +12,11 @@ export const getDetailById = async (id: string) => {
 
   return category;
 };
+
+export const deleteAll = async () => {
+  return await prisma.category.deleteMany();
+};
+
+export const deleteById = async (id: string) => {
+  return await prisma.category.delete({ where: { id } });
+};

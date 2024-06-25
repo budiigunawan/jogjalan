@@ -64,3 +64,65 @@ categoryRoute.openapi(
     return c.json(category);
   }
 );
+
+categoryRoute.openapi(
+  {
+    method: "delete",
+    path: "/",
+    description: "Delete all categories",
+    responses: {
+      200: {
+        description: "Successfully delete all categories",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const result = await categoryService.deleteAll();
+
+    return c.json(
+      {
+        message: "All categories data have been deleted",
+        result,
+      },
+      200
+    );
+  }
+);
+
+categoryRoute.openapi(
+  {
+    method: "delete",
+    path: "/{id}",
+    request: {
+      params: CategoryIdSchema,
+    },
+    description: "Delete category by id",
+    responses: {
+      200: {
+        description: "Successfully delete category",
+      },
+      404: {
+        description: "Category not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const deletedCategory = await categoryService.deleteById(id);
+
+    if (!deletedCategory) {
+      return c.json({ message: "Category not found" }, 404);
+    }
+
+    return c.json(
+      {
+        message: `Category with ID ${deletedCategory.id} has been deleted`,
+        deletedCategory,
+      },
+      200
+    );
+  }
+);
