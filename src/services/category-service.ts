@@ -1,6 +1,14 @@
 import { prisma } from "../lib/db";
 
 export const getAll = async () => {
-  const tags = await prisma.category.findMany();
-  return tags;
+  const categories = await prisma.category.findMany();
+  return categories;
+};
+
+export const getDetailById = async (id: string) => {
+  const category = await prisma.category.findUnique({
+    where: { id },
+  });
+
+  return category;
 };
