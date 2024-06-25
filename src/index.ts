@@ -1,163 +1,168 @@
-import { Hono } from "hono";
-import { PrismaClient } from "@prisma/client";
-import { Place, dataPlaces } from "./data/places";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { tagRoute } from "./routes/tag-route";
 
-let places = dataPlaces;
-const prisma = new PrismaClient();
-
-const app = new Hono();
+const app = new OpenAPIHono();
 
 app.get("/", (c) => {
   return c.json({
     message: "Jogjalan API",
-    places: "/places",
+    places: "/tags",
   });
 });
 
-app.get("/places", (c) => {
-  if (places.length <= 0) {
-    return c.json({
-      message: "There is no places data",
-    });
-  }
-  return c.json(places);
-});
+app.route("/", tagRoute);
 
-app.get("/tags", async (c) => {
-  const tags = await prisma.tag.findMany();
-  return c.json(tags);
-});
+// app.get("/", (c) => {
+//   return c.json({
+//     message: "Jogjalan API",
+//     places: "/places",
+//   });
+// });
 
-app.get("/places/:id", (c) => {
-  const id = c.req.param("id");
+// app.get("/places", (c) => {
+//   if (places.length <= 0) {
+//     return c.json({
+//       message: "There is no places data",
+//     });
+//   }
+//   return c.json(places);
+// });
 
-  if (!id) {
-    return c.json({ message: "There is no ID" });
-  }
+// app.get("/tags", async (c) => {
+//   const tags = await prisma.tag.findMany();
+//   return c.json(tags);
+// });
 
-  const place = places.find((place) => place.id === id);
+// app.get("/places/:id", (c) => {
+//   const id = c.req.param("id");
 
-  if (!place) {
-    return c.json({ message: "Place not found" });
-  }
+//   if (!id) {
+//     return c.json({ message: "There is no ID" });
+//   }
 
-  return c.json(place);
-});
+//   const place = places.find((place) => place.id === id);
 
-app.delete("/places", (c) => {
-  places = [];
+//   if (!place) {
+//     return c.json({ message: "Place not found" });
+//   }
 
-  return c.json({
-    message: "All places data have been deleted",
-  });
-});
+//   return c.json(place);
+// });
 
-app.delete("/places/:id", (c) => {
-  const id = c.req.param("id");
+// app.delete("/places", (c) => {
+//   places = [];
 
-  if (!id) {
-    return c.json({ message: "There is no place ID" });
-  }
+//   return c.json({
+//     message: "All places data have been deleted",
+//   });
+// });
 
-  const place = places.find((place) => place.id === id);
+// app.delete("/places/:id", (c) => {
+//   const id = c.req.param("id");
 
-  if (!place) {
-    return c.json({ message: "Place to be deleted not found" });
-  }
+//   if (!id) {
+//     return c.json({ message: "There is no place ID" });
+//   }
 
-  places = places.filter((place) => place.id !== id);
+//   const place = places.find((place) => place.id === id);
 
-  return c.json({
-    message: `Place with ID ${id} has been deleted`,
-    deletedPlace: place,
-  });
-});
+//   if (!place) {
+//     return c.json({ message: "Place to be deleted not found" });
+//   }
 
-app.post("/places", async (c) => {
-  const body = await c.req.json();
+//   places = places.filter((place) => place.id !== id);
 
-  const {
-    name,
-    description,
-    address,
-    latitude,
-    longitude,
-    phone,
-    instagram,
-    website,
-    tag,
-    categories,
-    openingHours,
-    imageUrl,
-  } = body;
+//   return c.json({
+//     message: `Place with ID ${id} has been deleted`,
+//     deletedPlace: place,
+//   });
+// });
 
-  const newPlace: Place = {
-    id: places[places.length - 1].id + 1,
-    name,
-    description,
-    address,
-    latitude,
-    longitude,
-    phone,
-    instagram,
-    website,
-    tag,
-    categories,
-    openingHours,
-    imageUrl,
-  };
+// app.post("/places", async (c) => {
+//   const body = await c.req.json();
 
-  const updatedPlaces = [...places, newPlace];
+//   const {
+//     name,
+//     description,
+//     address,
+//     latitude,
+//     longitude,
+//     phone,
+//     instagram,
+//     website,
+//     tag,
+//     categories,
+//     openingHours,
+//     imageUrl,
+//   } = body;
 
-  places = updatedPlaces;
+//   const newPlace: Place = {
+//     id: places[places.length - 1].id + 1,
+//     name,
+//     description,
+//     address,
+//     latitude,
+//     longitude,
+//     phone,
+//     instagram,
+//     website,
+//     tag,
+//     categories,
+//     openingHours,
+//     imageUrl,
+//   };
 
-  return c.json({
-    message: "New place has been added",
-    newPlace,
-  });
-});
+//   const updatedPlaces = [...places, newPlace];
 
-app.post("/places/seed", async (c) => {
-  places = dataPlaces;
+//   places = updatedPlaces;
 
-  return c.json({
-    message: "Many places data has been seeded.",
-  });
-});
+//   return c.json({
+//     message: "New place has been added",
+//     newPlace,
+//   });
+// });
 
-app.put("/places/:id", async (c) => {
-  const id = c.req.param("id");
+// app.post("/places/seed", async (c) => {
+//   places = dataPlaces;
 
-  if (!id) {
-    return c.json({ message: "There is no place ID" });
-  }
+//   return c.json({
+//     message: "Many places data has been seeded.",
+//   });
+// });
 
-  const place = places.find((place) => place.id === id);
+// app.put("/places/:id", async (c) => {
+//   const id = c.req.param("id");
 
-  if (!place) {
-    return c.json({ message: "Place not found" });
-  }
+//   if (!id) {
+//     return c.json({ message: "There is no place ID" });
+//   }
 
-  const body = await c.req.json();
-  const { name, description } = body;
+//   const place = places.find((place) => place.id === id);
 
-  const newPlace: Place = {
-    ...place,
-    name,
-    description,
-  };
+//   if (!place) {
+//     return c.json({ message: "Place not found" });
+//   }
 
-  const updatedPlaces = places.map((place) => {
-    if (place.id === id) {
-      return newPlace;
-    } else {
-      return place;
-    }
-  });
+//   const body = await c.req.json();
+//   const { name, description } = body;
 
-  places = updatedPlaces;
+//   const newPlace: Place = {
+//     ...place,
+//     name,
+//     description,
+//   };
 
-  return c.json(newPlace);
-});
+//   const updatedPlaces = places.map((place) => {
+//     if (place.id === id) {
+//       return newPlace;
+//     } else {
+//       return place;
+//     }
+//   });
+
+//   places = updatedPlaces;
+
+//   return c.json(newPlace);
+// });
 
 export default app;
