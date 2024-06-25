@@ -1,4 +1,5 @@
 import { categoryRoute } from "./category-route";
 import { tagRoute } from "./tag-route";
+import { placeRoute } from "./place-route";
 
-export { categoryRoute, tagRoute };
+export { placeRoute, categoryRoute, tagRoute };

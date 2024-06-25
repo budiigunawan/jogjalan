@@ -1,7 +1,11 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { categoryRoute, tagRoute } from "./routes";
+import { categoryRoute, placeRoute, tagRoute } from "./routes";
 
 const app = new OpenAPIHono();
+
+app.route("/", placeRoute);
+app.route("/", categoryRoute); // Handle /categories
+app.route("/", tagRoute); // Handle /tags
 
 app.get("/", (c) => {
   return c.json({
@@ -9,9 +13,6 @@ app.get("/", (c) => {
     places: "/tags",
   });
 });
-
-app.route("/", categoryRoute); // Handle /categories
-app.route("/", tagRoute); // Handle /tags
 
 // app.get("/", (c) => {
 //   return c.json({
