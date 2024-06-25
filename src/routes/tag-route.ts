@@ -2,7 +2,7 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 
 const apiTags = ["Tag"];
 
-export const tagRoute = new OpenAPIHono().basePath("/tags");
+export const tagRoute = new OpenAPIHono();
 
 tagRoute.openapi(
   {

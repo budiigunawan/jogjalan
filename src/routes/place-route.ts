@@ -2,7 +2,7 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 
 const apiTags = ["Place"];
 
-export const placeRoute = new OpenAPIHono().basePath("/places");
+export const placeRoute = new OpenAPIHono();
 
 placeRoute.openapi(
   {

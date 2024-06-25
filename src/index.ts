@@ -3,9 +3,9 @@ import { categoryRoute, placeRoute, tagRoute } from "./routes";
 
 const app = new OpenAPIHono();
 
-app.route("/", placeRoute);
-app.route("/", categoryRoute); // Handle /categories
-app.route("/", tagRoute); // Handle /tags
+app.route("/places", placeRoute);
+app.route("/categories", categoryRoute);
+app.route("/tags", tagRoute);
 
 app.get("/", (c) => {
   return c.json({
