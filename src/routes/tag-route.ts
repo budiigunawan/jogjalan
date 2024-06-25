@@ -154,3 +154,44 @@ tagRoute.openapi(
     );
   }
 );
+
+tagRoute.openapi(
+  {
+    method: "put",
+    path: "/{id}",
+    request: {
+      params: TagIdSchema,
+    },
+    description: "Update tag by id",
+    responses: {
+      200: {
+        description: "Successfully update new tag",
+      },
+      404: {
+        description: "Tag not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const targetTag = await tagService.getDetailById(id);
+
+    if (!targetTag) {
+      return c.json({ message: "Tag not found" }, 404);
+    }
+
+    const body = await c.req.json();
+
+    const updatedTag = await tagService.update(id, body);
+
+    return c.json(
+      {
+        message: "Tag has been updated",
+        updatedTag,
+      },
+      200
+    );
+  }
+);
