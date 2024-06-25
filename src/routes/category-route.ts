@@ -111,11 +111,13 @@ categoryRoute.openapi(
   async (c) => {
     const id = c.req.param("id")!;
 
-    const deletedCategory = await categoryService.deleteById(id);
+    const targetCategory = await categoryService.getDetailById(id);
 
-    if (!deletedCategory) {
+    if (!targetCategory) {
       return c.json({ message: "Category not found" }, 404);
     }
+
+    const deletedCategory = await categoryService.deleteById(id);
 
     return c.json(
       {

@@ -1,4 +1,6 @@
+import { z } from "zod";
 import { prisma } from "../lib/db";
+import { CreateTagSchema } from "../schemas/tag-schema";
 
 export const getAll = async () => {
   const tags = await prisma.tag.findMany();
@@ -19,4 +21,12 @@ export const deleteAll = async () => {
 
 export const deleteById = async (id: string) => {
   return await prisma.tag.delete({ where: { id } });
+};
+
+export const create = async (body: z.infer<typeof CreateTagSchema>) => {
+  return await prisma.tag.create({
+    data: {
+      name: body.name,
+    },
+  });
 };

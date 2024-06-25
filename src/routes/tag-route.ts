@@ -111,11 +111,13 @@ tagRoute.openapi(
   async (c) => {
     const id = c.req.param("id")!;
 
-    const deletedTag = await tagService.deleteById(id);
+    const targetTag = await tagService.getDetailById(id);
 
-    if (!deletedTag) {
+    if (!targetTag) {
       return c.json({ message: "Tag not found" }, 404);
     }
+
+    const deletedTag = await tagService.deleteById(id);
 
     return c.json(
       {
@@ -123,6 +125,32 @@ tagRoute.openapi(
         deletedTag,
       },
       200
+    );
+  }
+);
+
+tagRoute.openapi(
+  {
+    method: "post",
+    path: "/",
+    description: "Create tag",
+    responses: {
+      201: {
+        description: "Successfully create new tag",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const body = await c.req.json();
+    const newTag = await tagService.create(body);
+
+    return c.json(
+      {
+        message: "New tag has been added",
+        newTag,
+      },
+      201
     );
   }
 );

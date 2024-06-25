@@ -14,13 +14,6 @@ app.get("/", (c) => {
   });
 });
 
-// app.get("/", (c) => {
-//   return c.json({
-//     message: "Jogjalan API",
-//     places: "/places",
-//   });
-// });
-
 // app.get("/places", (c) => {
 //   if (places.length <= 0) {
 //     return c.json({
