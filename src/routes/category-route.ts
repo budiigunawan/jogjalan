@@ -154,3 +154,44 @@ categoryRoute.openapi(
     );
   }
 );
+
+categoryRoute.openapi(
+  {
+    method: "put",
+    path: "/{id}",
+    request: {
+      params: CategoryIdSchema,
+    },
+    description: "Update category by id",
+    responses: {
+      200: {
+        description: "Successfully update new category",
+      },
+      404: {
+        description: "Category not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const targetTag = await categoryService.getDetailById(id);
+
+    if (!targetTag) {
+      return c.json({ message: "Category not found" }, 404);
+    }
+
+    const body = await c.req.json();
+
+    const updatedCategory = await categoryService.update(id, body);
+
+    return c.json(
+      {
+        message: "Category has been updated",
+        updatedCategory,
+      },
+      200
+    );
+  }
+);

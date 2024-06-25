@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { prisma } from "../lib/db";
-import { CreateCategorySchema } from "../schemas/category-schema";
+import {
+  CreateCategorySchema,
+  UpdateCategorySchema,
+} from "../schemas/category-schema";
 
 export const getAll = async () => {
   const categories = await prisma.category.findMany();
@@ -25,6 +28,18 @@ export const deleteById = async (id: string) => {
 
 export const create = async (body: z.infer<typeof CreateCategorySchema>) => {
   return await prisma.category.create({
+    data: {
+      name: body.name,
+    },
+  });
+};
+
+export const update = async (
+  id: string,
+  body: z.infer<typeof UpdateCategorySchema>
+) => {
+  return await prisma.category.update({
+    where: { id },
     data: {
       name: body.name,
     },
