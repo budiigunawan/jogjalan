@@ -1,4 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { categoryService } from "../services";
 
 const apiTags = ["Category"];
 
@@ -16,12 +17,18 @@ categoryRoute.openapi(
     },
     tags: apiTags,
   },
-  (c) => {
-    return c.json(
-      {
-        message: "This is categories",
-      },
-      200
-    );
+  async (c) => {
+    const categories = await categoryService.getAll();
+
+    if (categories.length <= 0) {
+      return c.json(
+        {
+          message: "There is no categories data",
+        },
+        200
+      );
+    }
+
+    return c.json(categories, 200);
   }
 );
