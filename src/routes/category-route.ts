@@ -128,3 +128,29 @@ categoryRoute.openapi(
     );
   }
 );
+
+categoryRoute.openapi(
+  {
+    method: "post",
+    path: "/",
+    description: "Create category",
+    responses: {
+      201: {
+        description: "Successfully create new category",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const body = await c.req.json();
+    const newCategory = await categoryService.create(body);
+
+    return c.json(
+      {
+        message: "New category has been added",
+        newCategory,
+      },
+      201
+    );
+  }
+);
