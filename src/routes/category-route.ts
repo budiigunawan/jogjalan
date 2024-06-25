@@ -17,8 +17,11 @@ categoryRoute.openapi(
     tags: apiTags,
   },
   (c) => {
-    return c.json({
-      message: "This is categories",
-    });
+    return c.json(
+      {
+        message: "This is categories",
+      },
+      200
+    );
   }
 );

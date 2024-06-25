@@ -17,8 +17,11 @@ placeRoute.openapi(
     tags: apiTags,
   },
   (c) => {
-    return c.json({
-      message: "This is places",
-    });
+    return c.json(
+      {
+        message: "This is places",
+      },
+      200
+    );
   }
 );

@@ -17,8 +17,11 @@ tagRoute.openapi(
     tags: apiTags,
   },
   (c) => {
-    return c.json({
-      message: "This is tags",
-    });
+    return c.json(
+      {
+        message: "This is tags",
+      },
+      200
+    );
   }
 );
