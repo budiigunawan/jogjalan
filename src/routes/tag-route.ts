@@ -46,9 +46,6 @@ tagRoute.openapi(
       200: {
         description: "Tag details",
       },
-      400: {
-        description: "There is no ID",
-      },
       404: {
         description: "Tag not found",
       },
@@ -56,11 +53,7 @@ tagRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const id = c.req.param("id");
-
-    if (!id) {
-      return c.json({ message: "There is no ID" }, 401);
-    }
+    const id = c.req.param("id")!;
 
     const tag = await tagService.getDetailById(id);
 
@@ -69,5 +62,67 @@ tagRoute.openapi(
     }
 
     return c.json(tag);
+  }
+);
+
+tagRoute.openapi(
+  {
+    method: "delete",
+    path: "/",
+    description: "Delete all tags",
+    responses: {
+      200: {
+        description: "Successfully delete all tags",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const result = await tagService.deleteAll();
+
+    return c.json(
+      {
+        message: "All tags data have been deleted",
+        result,
+      },
+      200
+    );
+  }
+);
+
+tagRoute.openapi(
+  {
+    method: "delete",
+    path: "/{id}",
+    request: {
+      params: TagIdSchema,
+    },
+    description: "Delete tag by id",
+    responses: {
+      200: {
+        description: "Successfully delete tag",
+      },
+      404: {
+        description: "Tag not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const deletedTag = await tagService.deleteById(id);
+
+    if (!deletedTag) {
+      return c.json({ message: "Tag not found" }, 404);
+    }
+
+    return c.json(
+      {
+        message: `Tag with ID ${deletedTag.id} has been deleted`,
+        deletedTag,
+      },
+      200
+    );
   }
 );

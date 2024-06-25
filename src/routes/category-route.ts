@@ -46,9 +46,6 @@ categoryRoute.openapi(
       200: {
         description: "Category details",
       },
-      400: {
-        description: "There is no ID",
-      },
       404: {
         description: "Category not found",
       },
@@ -56,11 +53,7 @@ categoryRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const id = c.req.param("id");
-
-    if (!id) {
-      return c.json({ message: "There is no ID" }, 401);
-    }
+    const id = c.req.param("id")!;
 
     const category = await categoryService.getDetailById(id);
 
