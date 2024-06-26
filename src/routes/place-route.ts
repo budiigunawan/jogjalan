@@ -130,3 +130,29 @@ placeRoute.openapi(
     });
   }
 );
+
+placeRoute.openapi(
+  {
+    method: "post",
+    path: "/",
+    description: "Create place",
+    responses: {
+      201: {
+        description: "Successfully create new place",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const body = await c.req.json();
+    const newPlace = await placeService.create(body);
+
+    return c.json(
+      {
+        message: "New place hase been added",
+        newPlace,
+      },
+      201
+    );
+  }
+);
