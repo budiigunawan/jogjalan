@@ -55,7 +55,7 @@ placeRoute.openapi(
   async (c) => {
     const id = c.req.param("id")!;
 
-    const place = placeService.getDetailById(id);
+    const place = await placeService.getDetailById(id);
 
     if (!place) {
       return c.json({ message: "Place not found" }, 404);
