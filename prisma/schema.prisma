@@ -14,16 +14,16 @@ datasource db {
 }
 
 model Place {
-  id          String @id @default(cuid())
-  name        String @unique @db.VarChar(255)
-  description String @db.Text
-  address     String @db.VarChar(255)
+  id          String  @id @default(cuid())
+  name        String  @unique @db.VarChar(255)
+  description String  @db.Text
+  address     String  @db.VarChar(255)
   latitude    Float?
   longitude   Float?
-  phone       String @db.VarChar(14)
-  instagram   String @db.VarChar(255)
-  website     String @db.VarChar(255)
-  imgUrl      String @db.VarChar(255)
+  phone       String? @db.VarChar(14)
+  instagram   String? @db.VarChar(255)
+  website     String? @db.VarChar(255)
+  imgUrl      String? @db.VarChar(255)
 
   tag                Tag                  @relation(fields: [tagId], references: [id])
   tagId              String               @unique
@@ -45,11 +45,11 @@ model Tag {
 }
 
 model OpeningHour {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   dayOfWeek Int
   isOpen    Boolean
-  startTime DateTime?
-  endTime   DateTime?
+  startTime DateTime @db.Time()
+  endTime   DateTime @db.Time()
 
   place   Place  @relation(fields: [placeId], references: [id])
   placeId String @unique
