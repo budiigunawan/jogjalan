@@ -1,5 +1,6 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { placeService } from "../services";
+import { PlaceIdSchema } from "../schemas/place-schema";
 
 const apiTags = ["Place"];
 
@@ -30,5 +31,102 @@ placeRoute.openapi(
     }
 
     return c.json(places, 200);
+  }
+);
+
+placeRoute.openapi(
+  {
+    method: "get",
+    path: "/{id}",
+    request: {
+      params: PlaceIdSchema,
+    },
+    description: "Get detail place by id",
+    responses: {
+      200: {
+        description: "Place details",
+      },
+      404: {
+        description: "Place not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const place = placeService.getDetailById(id);
+
+    if (!place) {
+      return c.json({ message: "Place not found" }, 404);
+    }
+
+    return c.json(place);
+  }
+);
+
+placeRoute.openapi(
+  {
+    method: "delete",
+    path: "/",
+    description: "Delete all places",
+    responses: {
+      200: {
+        description: "Successfull delete all places",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const result = await placeService.deleteAll();
+
+    return c.json(
+      {
+        message: "All places data have been deleted",
+        result,
+      },
+      200
+    );
+  }
+);
+
+placeRoute.openapi(
+  {
+    method: "delete",
+    path: "/{id}",
+    request: {
+      params: PlaceIdSchema,
+    },
+    description: "Delete place by id",
+    responses: {
+      200: {
+        description: "Successfully delete place",
+      },
+      404: {
+        description: "Place not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const targetPlace = await placeService.getDetailById(id);
+
+    if (!targetPlace) {
+      return c.json(
+        {
+          message: "Place not found",
+        },
+        404
+      );
+    }
+
+    const deletedPlace = await placeService.deleteById(id);
+
+    return c.json({
+      message: `Place with ID ${deletedPlace.id} has been deleted`,
+      deletedPlace,
+    });
   }
 );
