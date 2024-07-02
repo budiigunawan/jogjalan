@@ -26,7 +26,7 @@ model Place {
   imgUrl      String? @db.VarChar(255)
 
   tag          Tag?          @relation(fields: [tagId], references: [id])
-  tagId        String?       @unique
+  tagId        String?
   openingHours OpeningHour[]
   categories   Category[]
 

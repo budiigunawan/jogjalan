@@ -37,7 +37,10 @@ export const create = async (body: z.infer<typeof CreatePlaceSchema>) => {
     website,
     imgUrl,
     tagName,
+    // openingHours,
+    // categories,
   } = body;
+
   return await prisma.place.create({
     data: {
       name: name,
@@ -50,7 +53,17 @@ export const create = async (body: z.infer<typeof CreatePlaceSchema>) => {
       website: website ?? "",
       imgUrl: imgUrl ?? "",
       tag: { connect: { name: tagName } },
+      // openingHours: {
+      //   create: openingHoursPayload,
+      // },
+      // categories: {
+      //   create: categories,
+      // },
     },
+    // include: {
+    //   openingHours: true,
+    //   categories: true,
+    // },
   });
 };
 

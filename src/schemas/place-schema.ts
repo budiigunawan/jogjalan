@@ -43,19 +43,19 @@ export const CreatePlaceSchema = z.object({
     .optional()
     .or(z.literal("")),
   tagName: z.string().min(3).openapi({ example: "Food" }).optional(),
-  // openingHours: z.array(
-  //   z.object({
-  //     dayOfWeek: z.number().int().min(0).max(6),
-  //     isOpen: z.boolean(),
-  //     startTime: z.string().time().openapi({ example: "07:00:00" }),
-  //     endTime: z.string().time().openapi({ example: "22:00:00" }),
-  //   })
-  // ),
-  // categories: z.array(
-  //   z.object({
-  //     categoryName: z.string().min(3).openapi({ example: "indonesian" }),
-  //   })
-  // ),
+  openingHours: z.array(
+    z.object({
+      dayOfWeek: z.number().int().min(0).max(6),
+      isOpen: z.boolean(),
+      startTime: z.string().time().openapi({ example: "07:00:00" }),
+      endTime: z.string().time().openapi({ example: "22:00:00" }),
+    })
+  ),
+  categories: z.array(
+    z.object({
+      name: z.string().min(3).openapi({ example: "indonesian" }),
+    })
+  ),
 });
 
 export const UpdatePlaceSchema = z.object({
