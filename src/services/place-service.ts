@@ -3,13 +3,80 @@ import { prisma } from "../lib/db";
 import { CreatePlaceSchema, UpdatePlaceSchema } from "../schemas/place-schema";
 
 export const getAll = async () => {
-  const tags = await prisma.place.findMany();
+  const tags = await prisma.place.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      address: true,
+      latitude: true,
+      longitude: true,
+      phone: true,
+      instagram: true,
+      website: true,
+      imgUrl: true,
+      tag: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      openingHours: {
+        select: {
+          id: true,
+          dayOfWeek: true,
+          isOpen: true,
+          startTime: true,
+          endTime: true,
+        },
+      },
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
   return tags;
 };
 
 export const getDetailById = async (id: string) => {
   const place = await prisma.place.findUnique({
     where: { id },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      address: true,
+      latitude: true,
+      longitude: true,
+      phone: true,
+      instagram: true,
+      website: true,
+      imgUrl: true,
+      tag: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      openingHours: {
+        select: {
+          id: true,
+          dayOfWeek: true,
+          isOpen: true,
+          startTime: true,
+          endTime: true,
+        },
+      },
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
   });
 
   return place;
