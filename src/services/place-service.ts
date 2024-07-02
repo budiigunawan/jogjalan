@@ -2,8 +2,14 @@ import { z } from "zod";
 import { prisma } from "../lib/db";
 import { CreatePlaceSchema, UpdatePlaceSchema } from "../schemas/place-schema";
 
-export const getAll = async () => {
-  const tags = await prisma.place.findMany({
+export const getAll = async (q?: string) => {
+  const places = await prisma.place.findMany({
+    where: {
+      name: {
+        mode: "insensitive",
+        contains: q,
+      },
+    },
     select: {
       id: true,
       name: true,
@@ -38,7 +44,7 @@ export const getAll = async () => {
       },
     },
   });
-  return tags;
+  return places;
 };
 
 export const getDetailById = async (id: string) => {

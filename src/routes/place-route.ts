@@ -19,7 +19,8 @@ placeRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const places = await placeService.getAll();
+    const q = c.req.query("q");
+    const places = await placeService.getAll(q);
 
     if (places.length <= 0) {
       return c.json(
