@@ -25,10 +25,10 @@ model Place {
   website     String? @db.VarChar(255)
   imgUrl      String? @db.VarChar(255)
 
-  tag                Tag?                 @relation(fields: [tagId], references: [id])
-  tagId              String?              @unique
-  openingHours       OpeningHour[]
-  PlacesToCategories PlacesToCategories[]
+  tag          Tag?          @relation(fields: [tagId], references: [id])
+  tagId        String?       @unique
+  openingHours OpeningHour[]
+  categories   Category[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -62,20 +62,8 @@ model Category {
   id   String @id @default(cuid())
   name String @unique @db.VarChar(255)
 
-  PlacesToCategories PlacesToCategories[]
+  places Place[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model PlacesToCategories {
-  place      Place    @relation(fields: [placeId], references: [id], onDelete: Cascade)
-  placeId    String   @unique
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId String   @unique
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([placeId, categoryId])
 }
