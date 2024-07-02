@@ -156,3 +156,41 @@ placeRoute.openapi(
     );
   }
 );
+
+placeRoute.openapi(
+  {
+    method: "put",
+    path: "/{id}",
+    request: {
+      params: PlaceIdSchema,
+    },
+    description: "Update place by id",
+    responses: {
+      200: {
+        description: "Successfully update new tag",
+      },
+      404: {
+        description: "Tag not found",
+      },
+    },
+    tags: apiTags,
+  },
+  async (c) => {
+    const id = c.req.param("id")!;
+
+    const targetPlace = await placeService.getDetailById(id);
+
+    if (!targetPlace) {
+      return c.json({ message: "Place not found" }, 404);
+    }
+
+    const body = await c.req.json();
+
+    const updatedPlace = await placeService.update(id, body);
+
+    return c.json({
+      message: "Place has been updated",
+      updatedPlace,
+    });
+  }
+);
