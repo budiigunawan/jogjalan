@@ -52,7 +52,7 @@ model OpeningHour {
   endTime   DateTime @db.Time()
 
   place   Place?  @relation(fields: [placeId], references: [id])
-  placeId String? @unique
+  placeId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
