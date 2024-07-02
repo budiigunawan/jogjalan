@@ -38,7 +38,7 @@ export const create = async (body: z.infer<typeof CreatePlaceSchema>) => {
     imgUrl,
     tagName,
     openingHours,
-    // categories,
+    categories,
   } = body;
 
   const openingHoursPayload = openingHours.map((openingHour) => {
@@ -64,13 +64,13 @@ export const create = async (body: z.infer<typeof CreatePlaceSchema>) => {
       openingHours: {
         create: openingHoursPayload,
       },
-      // categories: {
-      //   create: categories,
-      // },
+      categories: {
+        create: categories,
+      },
     },
     include: {
       openingHours: true,
-      // categories: true,
+      categories: true,
     },
   });
 };
