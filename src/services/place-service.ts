@@ -2,49 +2,73 @@ import { z } from "zod";
 import { prisma } from "../lib/db";
 import { CreatePlaceSchema, UpdatePlaceSchema } from "../schemas/place-schema";
 
-export const getAll = async (q?: string) => {
-  const places = await prisma.place.findMany({
-    where: {
-      name: {
-        mode: "insensitive",
-        contains: q,
-      },
-    },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      address: true,
-      latitude: true,
-      longitude: true,
-      phone: true,
-      instagram: true,
-      website: true,
-      imgUrl: true,
-      tag: {
-        select: {
-          id: true,
-          name: true,
+export const getAll = async (
+  page: string = "1",
+  limit: string = "10",
+  q?: string
+) => {
+  const skip = Number(limit) * (Number(page) - 1);
+  const take = Number(limit);
+
+  const [count, places] = await prisma.$transaction([
+    prisma.place.count({
+      where: {
+        name: {
+          mode: "insensitive",
+          contains: q,
         },
       },
-      openingHours: {
-        select: {
-          id: true,
-          dayOfWeek: true,
-          isOpen: true,
-          startTime: true,
-          endTime: true,
+    }),
+    prisma.place.findMany({
+      skip,
+      take,
+      where: {
+        name: {
+          mode: "insensitive",
+          contains: q,
         },
       },
-      categories: {
-        select: {
-          id: true,
-          name: true,
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        address: true,
+        latitude: true,
+        longitude: true,
+        phone: true,
+        instagram: true,
+        website: true,
+        imgUrl: true,
+        tag: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        openingHours: {
+          select: {
+            id: true,
+            dayOfWeek: true,
+            isOpen: true,
+            startTime: true,
+            endTime: true,
+          },
+        },
+        categories: {
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
-    },
-  });
-  return places;
+    }),
+  ]);
+
+  return {
+    totalData: count,
+    totalPage: Math.ceil(count / take),
+    data: places,
+  };
 };
 
 export const getDetailById = async (id: string) => {

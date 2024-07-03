@@ -19,10 +19,13 @@ placeRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
+    const page = c.req.query("page");
+    const limit = c.req.query("limit");
     const q = c.req.query("q");
-    const places = await placeService.getAll(q);
 
-    if (places.length <= 0) {
+    const places = await placeService.getAll(page, limit, q);
+
+    if (places.data.length <= 0) {
       return c.json(
         {
           message: "There is no places data",
