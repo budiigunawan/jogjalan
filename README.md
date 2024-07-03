@@ -8,6 +8,8 @@ Jogjalan API for listing various tourism destinatios, restaurants, and todos in 
 - [Hono](https://hono.dev/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Prisma](https://www.prisma.io/)
+- [Zod](https://hono.dev/examples/zod-openapi)
+- [SwaggerUI](https://hono.dev/examples/swagger-ui)
 
 ## REST API Specification
 
@@ -22,6 +24,8 @@ Jogjalan API for listing various tourism destinatios, restaurants, and todos in 
 | `/places`     | `DELETE` | Delete all places      |
 | `/places/:id` | `DELETE` | Delete one place by id |
 | `/places/:id` | `PUT`    | Update one place by id |
+
+- Read more: <https://jogjalan.budigunawan.com/swagger>
 
 ## Database Design/Schema/ERD
 
