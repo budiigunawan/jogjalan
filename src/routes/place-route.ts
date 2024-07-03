@@ -1,6 +1,6 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { placeService } from "../services";
-import { PlaceIdSchema } from "../schemas/place-schema";
+import { PlaceIdSchema, PlaceQueryParams } from "../schemas/place-schema";
 
 const apiTags = ["Place"];
 
@@ -10,6 +10,9 @@ placeRoute.openapi(
   {
     method: "get",
     path: "/",
+    request: {
+      query: PlaceQueryParams,
+    },
     description: "Get all places",
     responses: {
       200: {
