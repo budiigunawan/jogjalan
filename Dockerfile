@@ -13,7 +13,7 @@ RUN bun install
 
 # Remove when deploy
 # Bind the app to port 3000
-EXPOSE 3000
+# EXPOSE 3000
 
 # Run the application
 CMD ["bun", "start"]
