@@ -162,7 +162,12 @@ export const create = async (body: z.infer<typeof CreatePlaceSchema>) => {
         create: openingHoursPayload,
       },
       categories: {
-        create: categories,
+        connectOrCreate: categories.map((category) => {
+          return {
+            where: { name: category },
+            create: { name: category },
+          };
+        }),
       },
     },
     include: {

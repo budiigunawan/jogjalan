@@ -69,11 +69,10 @@ export const CreatePlaceSchema = z.object({
       endTime: z.string().time().openapi({ example: "22:00:00" }),
     })
   ),
-  categories: z.array(
-    z.object({
-      name: z.string().min(3).openapi({ example: "indonesian" }),
-    })
-  ),
+  categories: z
+    .string()
+    .array()
+    .openapi({ example: ["Indonesian", "Traditional"] }),
 });
 
 export const UpdatePlaceSchema = z.object({
