@@ -192,7 +192,17 @@ export const update = async (
     website,
     imgUrl,
     tagName,
+    openingHours,
+    categories,
   } = body;
+
+  const openingHoursPayload = openingHours.map((openingHour) => {
+    return {
+      ...openingHour,
+      startTime: new Date(openingHour.startTime),
+      endTime: new Date(openingHour.endTime),
+    };
+  });
 
   return await prisma.place.update({
     where: { id },
@@ -207,6 +217,25 @@ export const update = async (
       website: website ?? "",
       imgUrl: imgUrl ?? "",
       tag: { connect: { name: tagName } },
+      openingHours: {
+        update: openingHoursPayload.map((openingHour) => {
+          const { id: idOpeningHour, ...openingHourData } = openingHour;
+          return {
+            data: { ...openingHourData },
+            where: {
+              id: idOpeningHour,
+            },
+          };
+        }),
+      },
+      categories: {
+        connectOrCreate: categories.map((category) => {
+          return {
+            where: { name: category },
+            create: { name: category },
+          };
+        }),
+      },
     },
   });
 };
