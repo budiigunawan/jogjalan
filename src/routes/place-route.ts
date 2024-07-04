@@ -1,6 +1,11 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
+import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { placeService } from "../services";
-import { PlaceIdSchema, PlaceQueryParams } from "../schemas/place-schema";
+import {
+  CreatePlaceSchema,
+  PlaceIdSchema,
+  PlaceQueryParams,
+  UpdatePlaceSchema,
+} from "../schemas/place-schema";
 
 const apiTags = ["Place"];
 
@@ -151,7 +156,7 @@ placeRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const body = await c.req.json();
+    const body: z.infer<typeof CreatePlaceSchema> = await c.req.json();
     const newPlace = await placeService.create(body);
 
     return c.json(
@@ -191,7 +196,7 @@ placeRoute.openapi(
       return c.json({ message: "Place not found" }, 404);
     }
 
-    const body = await c.req.json();
+    const body: z.infer<typeof UpdatePlaceSchema> = await c.req.json();
 
     const updatedPlace = await placeService.update(id, body);
 

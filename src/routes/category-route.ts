@@ -1,6 +1,10 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
+import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { categoryService } from "../services";
-import { CategoryIdSchema } from "../schemas/category-schema";
+import {
+  CategoryIdSchema,
+  CreateCategorySchema,
+  UpdateCategorySchema,
+} from "../schemas/category-schema";
 
 const apiTags = ["Category"];
 
@@ -142,7 +146,7 @@ categoryRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const body = await c.req.json();
+    const body: z.infer<typeof CreateCategorySchema> = await c.req.json();
     const newCategory = await categoryService.create(body);
 
     return c.json(
@@ -182,8 +186,7 @@ categoryRoute.openapi(
       return c.json({ message: "Category not found" }, 404);
     }
 
-    const body = await c.req.json();
-
+    const body: z.infer<typeof UpdateCategorySchema> = await c.req.json();
     const updatedCategory = await categoryService.update(id, body);
 
     return c.json(

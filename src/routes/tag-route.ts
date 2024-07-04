@@ -1,6 +1,10 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
+import { OpenAPIHono, z } from "@hono/zod-openapi";
 import { tagService } from "../services";
-import { TagIdSchema } from "../schemas/tag-schema";
+import {
+  CreateTagSchema,
+  TagIdSchema,
+  UpdateTagSchema,
+} from "../schemas/tag-schema";
 
 const apiTags = ["Tag"];
 
@@ -142,7 +146,7 @@ tagRoute.openapi(
     tags: apiTags,
   },
   async (c) => {
-    const body = await c.req.json();
+    const body: z.infer<typeof CreateTagSchema> = await c.req.json();
     const newTag = await tagService.create(body);
 
     return c.json(
@@ -182,8 +186,7 @@ tagRoute.openapi(
       return c.json({ message: "Tag not found" }, 404);
     }
 
-    const body = await c.req.json();
-
+    const body: z.infer<typeof UpdateTagSchema> = await c.req.json();
     const updatedTag = await tagService.update(id, body);
 
     return c.json(
